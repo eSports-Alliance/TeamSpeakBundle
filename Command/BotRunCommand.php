@@ -18,22 +18,15 @@ use eSA\TeamSpeakBundle\Event\ClientEnterViewEvent;
 use eSA\TeamSpeakBundle\Event\ClientLeftViewEvent;
 use eSA\TeamSpeakBundle\Event\ClientMovedEvent;
 use eSA\TeamSpeakBundle\Event\NotifyEvent;
-use eSA\TeamSpeakBundle\Event\ServerqueryWaitTimeoutEvent;
 use eSA\TeamSpeakBundle\Event\ServerSelectedEvent;
 use eSA\TeamSpeakBundle\Event\TextMessageEvent;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class BotCommand extends ContainerAwareCommand
+class BotRunCommand extends ContainerAwareCommand
 {
-    /**
-     * @var \DateTime
-     */
-    protected static $timeout;
-
     /**
      * @var InputInterface
      */
@@ -45,14 +38,18 @@ class BotCommand extends ContainerAwareCommand
     protected static $output;
 
     /**
+     * @var string
+     */
+    protected static $pidFile;
+
+    /**
      * @var EventDispatcher
      */
     protected static $dispatcher;
 
     protected function configure()
     {
-        $this->setName('teamspeak:bot:start')
-            ->addOption('timeout', 't', InputOption::VALUE_REQUIRED, 'Maximal execution time', "T10M");
+        $this->setName('teamspeak:bot:run')->setHidden(true);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -60,34 +57,27 @@ class BotCommand extends ContainerAwareCommand
         self::$input      = $input;
         self::$output     = $output;
         self::$dispatcher = $this->getContainer()->get('event_dispatcher');
-        self::$timeout    = new \DateTime();
-
-        $timeout      = $input->getOption('timeout');
-        $dateInterval = new \DateInterval(sprintf("P%s", $timeout));
-        self::$timeout->add($dateInterval);
-
-        /**
-         * @var $teamSpeak \TeamSpeak3_Node_Host
-         */
+        self::$pidFile    = sprintf("%s/../.teamspeak-bot.pid", $this->getContainer()->get('kernel')->getRootDir());
 
         $class = get_class($this);
 
         \TeamSpeak3::init();
-
         \TeamSpeak3_Helper_Signal::getInstance()->subscribe("notifyServerselected", "$class::onSelect");
         \TeamSpeak3_Helper_Signal::getInstance()->subscribe("notifyEvent", "$class::onEvent");
         \TeamSpeak3_Helper_Signal::getInstance()->subscribe("serverqueryWaitTimeout", "$class::onTimeout");
 
+        /**
+         * @var $teamSpeak \TeamSpeak3_Node_Host
+         */
         $teamSpeak = $this->getContainer()->get('esa_team_speak')->getTeamSpeakInstance();
 
-        while (new \DateTime() < self::$timeout) {
+        while (file_exists(self::$pidFile)) {
             try {
                 $teamSpeak->getAdapter()->wait();
             } catch (\Exception $e) {
                 sleep(30);
             }
         }
-
     }
 
     public static function onEvent(\TeamSpeak3_Adapter_ServerQuery_Event $event, \TeamSpeak3_Node_Host $host)
@@ -134,8 +124,14 @@ class BotCommand extends ContainerAwareCommand
         $host->serverGetSelected()->notifyRegister("textprivate");
     }
 
-    public static function onTimeout($event, $host)
+    /**
+     * @param int $timeout
+     * @param \TeamSpeak3_Adapter_ServerQuery $serverQuery
+     */
+    public static function onTimeout($timeout, \TeamSpeak3_Adapter_ServerQuery $serverQuery)
     {
-        dump($event);
+        if (false === file_exists(self::$pidFile)) {
+            die();
+        }
     }
 }
