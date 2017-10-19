@@ -1,0 +1,27 @@
+{
+  "name": "esports-academy/teamspeak-bundle",
+  "description": "teamspeak service to connect to teamspeak-server and convert teamspeak events to symfony events",
+  "type": "symfony-bundle",
+  "authors": [
+    {
+      "name": "Thomas Hanke",
+      "email": "thomas@it-hanke.de"
+    }
+  ],
+  "license": [
+    "MIT"
+  ],
+  "require": {
+    "php": ">=5.6",
+    "symfony/framework-standard-edition": ">=2.8.0",
+    "planetteamspeak/ts3-php-framework": "^1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ESA\\TeamSpeakBundle\\": ""
+    }
+  }
+}
