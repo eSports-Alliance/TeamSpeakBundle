@@ -49,7 +49,7 @@ class BotRunCommand extends ContainerAwareCommand
 
     protected function configure()
     {
-        $this->setName('teamspeak:bot:run')->setHidden(true);
+        $this->setName('teamspeak:bot:run')->setDescription("Start TeamSpeak-Bot.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

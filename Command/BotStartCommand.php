@@ -21,7 +21,7 @@ class BotStartCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
-        $this->setName('teamspeak:bot:start');
+        $this->setName('teamspeak:bot:start')->setDescription("Start TeamSpeak-Bot in background.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

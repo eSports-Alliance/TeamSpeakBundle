@@ -3,10 +3,10 @@ services:
         class: eSA\TeamSpeakBundle\Service\TeamSpeak3Api
         lazy: true
         arguments:
-            - "%sn_team_speak3.host%"
-            - "%sn_team_speak3.port%"
-            - "%sn_team_speak3.query_port%"
-            - "%sn_team_speak3.username%"
-            - "%sn_team_speak3.password%"
-            - "%sn_team_speak3.nickname%"
-            - "%sn_team_speak3.timeout%"
+            - "%esa_team_speak.host"
+            - "%esa_team_speak.port%"
+            - "%esa_team_speak.query_port%"
+            - "%esa_team_speak.username%"
+            - "%esa_team_speak.password%"
+            - "%esa_team_speak.nickname%"
+            - "%esa_team_speak.timeout%"

@@ -21,7 +21,7 @@ class BotStopCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this->setName("teamspeak:bot:stop")
-        ->setDescription("Stop running TeamSpeak-Bot");
+        ->setDescription("Stop running TeamSpeak-Bot")->setDescription("Stop current running TeamSpeak-Bot.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
