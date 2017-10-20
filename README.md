@@ -9,7 +9,7 @@ Run `composer require esports-academy/backup-bundle` to use eSATeamSpeakBundle i
 ## Configuration
 
 Add to `AppKernel.php`
-
+```php
     class AppKernel extends Kernel
     {
         public function registerBundles()
@@ -26,9 +26,10 @@ Add to `AppKernel.php`
         }
         // ...
     }
+```
     
 config.yml
-
+```yaml
     esa_team_speak:
         host: ts.es-a.org       // TeamSpeak-IP
         port: 9987              // TeamSpeak-Port
@@ -37,7 +38,26 @@ config.yml
         password: p4ssw0rd      // Serverquery-Password
         nickname: James         // Nickname
         timeout: 10             // Timeout in Seconds
+```
 
 ## Usage
 
-Coming soon ...
+### Create your method
+```php
+    class TeamSpeakBot {
+        public function onClientEnterView($event) {
+            // do stuff
+        }
+    }
+```
+
+services.yml
+
+```yaml
+    services:
+        AppBundle\TeamSpeakBot:
+            tags:
+                - { name: kernel.event_listener, event: teamspeak.client_enter_view, method: onClientEnterView }            
+```
+
+To run the bot execute `php bin/console teamspeak:bot:run` or `php bin/console teamspeak:bot:start` for background job.
