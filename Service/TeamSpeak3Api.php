@@ -8,7 +8,7 @@
  * Time: 06:26
  */
 
-namespace eSA\TeamSpeakBundle\Service;
+namespace ESA\TeamSpeakBundle\Service;
 
 /**
  * Class TeamSpeak3Api
