@@ -11,15 +11,15 @@
 namespace ESA\TeamSpeakBundle\Command;
 
 
-use eSA\TeamSpeakBundle\Event\ChannelCreatedEvent;
-use eSA\TeamSpeakBundle\Event\ChannelDeletedEvent;
-use eSA\TeamSpeakBundle\Event\ChannelMovedEvent;
-use eSA\TeamSpeakBundle\Event\ClientEnterViewEvent;
-use eSA\TeamSpeakBundle\Event\ClientLeftViewEvent;
-use eSA\TeamSpeakBundle\Event\ClientMovedEvent;
-use eSA\TeamSpeakBundle\Event\NotifyEvent;
-use eSA\TeamSpeakBundle\Event\ServerSelectedEvent;
-use eSA\TeamSpeakBundle\Event\TextMessageEvent;
+use ESA\TeamSpeakBundle\Event\ChannelCreatedEvent;
+use ESA\TeamSpeakBundle\Event\ChannelDeletedEvent;
+use ESA\TeamSpeakBundle\Event\ChannelMovedEvent;
+use ESA\TeamSpeakBundle\Event\ClientEnterViewEvent;
+use ESA\TeamSpeakBundle\Event\ClientLeftViewEvent;
+use ESA\TeamSpeakBundle\Event\ClientMovedEvent;
+use ESA\TeamSpeakBundle\Event\NotifyEvent;
+use ESA\TeamSpeakBundle\Event\ServerSelectedEvent;
+use ESA\TeamSpeakBundle\Event\TextMessageEvent;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
