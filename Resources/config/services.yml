@@ -3,7 +3,7 @@ services:
         class: eSA\TeamSpeakBundle\Service\TeamSpeak3Api
         lazy: true
         arguments:
-            - "%esa_team_speak.host"
+            - "%esa_team_speak.host%"
             - "%esa_team_speak.port%"
             - "%esa_team_speak.query_port%"
             - "%esa_team_speak.username%"
