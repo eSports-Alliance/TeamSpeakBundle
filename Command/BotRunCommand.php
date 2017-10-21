@@ -8,7 +8,7 @@
  * Time: 06:23
  */
 
-namespace eSA\TeamSpeakBundle\Command;
+namespace ESA\TeamSpeakBundle\Command;
 
 
 use eSA\TeamSpeakBundle\Event\ChannelCreatedEvent;

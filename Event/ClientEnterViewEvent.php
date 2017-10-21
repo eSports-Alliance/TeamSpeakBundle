@@ -8,7 +8,7 @@
  * Time: 06:46
  */
 
-namespace eSA\TeamSpeakBundle\Event;
+namespace ESA\TeamSpeakBundle\Event;
 
 
 class ClientEnterViewEvent extends NotifyEvent

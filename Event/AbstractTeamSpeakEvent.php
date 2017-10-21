@@ -8,7 +8,7 @@
  * Time: 07:03
  */
 
-namespace eSA\TeamSpeakBundle\Event;
+namespace ESA\TeamSpeakBundle\Event;
 
 
 use Symfony\Component\EventDispatcher\Event;

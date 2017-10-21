@@ -1,6 +1,6 @@
 services:
     esa_team_speak:
-        class: eSA\TeamSpeakBundle\Service\TeamSpeak3Api
+        class: ESA\TeamSpeakBundle\Service\TeamSpeak3Api
         lazy: true
         arguments:
             - "%esa_team_speak.host%"

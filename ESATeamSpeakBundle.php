@@ -1,6 +1,6 @@
 <?php
 
-namespace eSA\TeamSpeakBundle;
+namespace ESA\TeamSpeakBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

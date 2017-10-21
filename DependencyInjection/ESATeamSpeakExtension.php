@@ -1,6 +1,6 @@
 <?php
 
-namespace eSA\TeamSpeakBundle\DependencyInjection;
+namespace ESA\TeamSpeakBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

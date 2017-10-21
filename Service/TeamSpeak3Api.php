@@ -18,7 +18,7 @@ namespace eSA\TeamSpeakBundle\Service;
  */
 class TeamSpeak3Api
 {
-    protected $teamSpeakInstance = null;
+    protected static $teamSpeakInstance = null;
 
     /**
      * @param $host
@@ -37,6 +37,10 @@ class TeamSpeak3Api
                                 $nickname = null,
                                 $timeout = 10)
     {
+        if (null !== self::$teamSpeakInstance) {
+            return;
+        }
+
         if (null !== $nickname) {
             $nickname = sprintf("&nickname=%s", $nickname);
         }
@@ -50,23 +54,15 @@ class TeamSpeak3Api
             $nickname,
             $timeout);
 
-        $this->teamSpeakInstance = \TeamSpeak3::factory($uri);
+        self::$teamSpeakInstance = \TeamSpeak3::factory($uri);
     }
 
     /**
      * @return \TeamSpeak3_Adapter_Abstract
      */
-    public function getTeamSpeakInstance()
+    public static function getTeamSpeakInstance()
     {
-        return $this->teamSpeakInstance;
-    }
-
-    /**
-     * @param \TeamSpeak3_Adapter_Abstract $teamSpeakInstance
-     */
-    public function setTeamSpeakInstance($teamSpeakInstance)
-    {
-        $this->teamSpeakInstance = $teamSpeakInstance;
+        return self::$teamSpeakInstance;
     }
 
 }
