@@ -18,6 +18,7 @@ use eSA\TeamSpeakBundle\Event\ClientEnterViewEvent;
 use eSA\TeamSpeakBundle\Event\ClientLeftViewEvent;
 use eSA\TeamSpeakBundle\Event\ClientMovedEvent;
 use eSA\TeamSpeakBundle\Event\NotifyEvent;
+use ESA\TeamSpeakBundle\Event\ServerqueryWaitTimeoutEvent;
 use eSA\TeamSpeakBundle\Event\ServerSelectedEvent;
 use eSA\TeamSpeakBundle\Event\TextMessageEvent;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -133,5 +134,12 @@ class BotRunCommand extends ContainerAwareCommand
         if (false === file_exists(self::$pidFile)) {
             die();
         }
+
+        if ($serverQuery->getQueryLastTimestamp() < time() - 300) {
+            $serverQuery->request("clientupdate");
+        }
+
+        self::$dispatcher->dispatch(ServerqueryWaitTimeoutEvent::getName(),
+            new ServerqueryWaitTimeoutEvent($timeout, $serverQuery));
     }
 }
