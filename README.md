@@ -2,11 +2,16 @@
 
 This Bundle give you a connection to a TeamSpeak³-Server. It listen add events and triggered listener in your project.
 
-## Installation
+- [Installation](#install)
+- [Configuration](#config)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+
+## <a name="install"></a>Installation
 
 Run `composer require esports-academy/backup-bundle` to use eSATeamSpeakBundle in your Project.
 
-## Configuration
+## <a name="config"></a>Configuration
 
 Add to `AppKernel.php`
 ```php
@@ -40,9 +45,12 @@ config.yml
         timeout: 10             // Timeout in Seconds
 ```
 
-## Usage
+## <a name="usage"></a>Usage
 
 ### Create your method
+
+AppBundle/TeamSpeakBot/ClientListener.php
+
 ```php
     class TeamSpeakBot {
         public function onClientEnterView($event) {
@@ -51,13 +59,22 @@ config.yml
     }
 ```
 
-services.yml
+### Register your method
 
+services.yml
 ```yaml
     services:
-        AppBundle\TeamSpeakBot:
+        AppBundle\TeamSpeakBot\ClientListener:
             tags:
                 - { name: kernel.event_listener, event: teamspeak.client_enter_view, method: onClientEnterView }            
 ```
 
+### Run the bot
+
 To run the bot execute `php bin/console teamspeak:bot:run` or `php bin/console teamspeak:bot:start` for background job.
+
+## <a name="roadmap"></a>Roadmap
+
+Here are some functions we will be include in future.
+
+- adding functions to manipulate the bot outisde of events
