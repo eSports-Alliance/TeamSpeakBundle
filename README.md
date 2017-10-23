@@ -24,7 +24,7 @@ Add to `AppKernel.php`
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             // ...
-            new eSA\TeamSpeakBundle\ESATeamSpeakBundle(),
+            new ESA\TeamSpeakBundle\ESATeamSpeakBundle(),
             // ...
             
             return $bundles;
