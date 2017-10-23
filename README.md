@@ -1,5 +1,7 @@
 # eSATeamSpeakBundle
 
+[![Latest Stable Version](https://poser.pugx.org/esports-academy/teamspeak-bundle/v/stable?format=flat-square)](https://packagist.org/packages/esports-academy/teamspeak-bundle) [![Total Downloads](https://poser.pugx.org/esports-academy/teamspeak-bundle/downloads?format=flat-square)](https://packagist.org/packages/esports-academy/teamspeak-bundle) [![License](https://poser.pugx.org/esports-academy/teamspeak-bundle/license?format=flat-square)](https://packagist.org/packages/esports-academy/teamspeak-bundle)
+
 This Bundle give you a connection to a TeamSpeak³-Server. It listen add events and triggered listener in your project.
 
 - [Installation](#install)
