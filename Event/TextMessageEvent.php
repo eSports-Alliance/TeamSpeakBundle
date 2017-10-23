@@ -8,7 +8,7 @@
  * Time: 06:51
  */
 
-namespace eSA\TeamSpeakBundle\Event;
+namespace ESA\TeamSpeakBundle\Event;
 
 
 class TextMessageEvent extends NotifyEvent

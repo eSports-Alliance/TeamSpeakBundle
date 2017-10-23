@@ -8,19 +8,18 @@
  * Time: 06:23
  */
 
-namespace eSA\TeamSpeakBundle\Command;
+namespace ESA\TeamSpeakBundle\Command;
 
 
-use eSA\TeamSpeakBundle\Event\ChannelCreatedEvent;
-use eSA\TeamSpeakBundle\Event\ChannelDeletedEvent;
-use eSA\TeamSpeakBundle\Event\ChannelMovedEvent;
-use eSA\TeamSpeakBundle\Event\ClientEnterViewEvent;
-use eSA\TeamSpeakBundle\Event\ClientLeftViewEvent;
-use eSA\TeamSpeakBundle\Event\ClientMovedEvent;
-use eSA\TeamSpeakBundle\Event\NotifyEvent;
-use ESA\TeamSpeakBundle\Event\ServerqueryWaitTimeoutEvent;
-use eSA\TeamSpeakBundle\Event\ServerSelectedEvent;
-use eSA\TeamSpeakBundle\Event\TextMessageEvent;
+use ESA\TeamSpeakBundle\Event\ChannelCreatedEvent;
+use ESA\TeamSpeakBundle\Event\ChannelDeletedEvent;
+use ESA\TeamSpeakBundle\Event\ChannelMovedEvent;
+use ESA\TeamSpeakBundle\Event\ClientEnterViewEvent;
+use ESA\TeamSpeakBundle\Event\ClientLeftViewEvent;
+use ESA\TeamSpeakBundle\Event\ClientMovedEvent;
+use ESA\TeamSpeakBundle\Event\NotifyEvent;
+use ESA\TeamSpeakBundle\Event\ServerSelectedEvent;
+use ESA\TeamSpeakBundle\Event\TextMessageEvent;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -47,6 +46,8 @@ class BotRunCommand extends ContainerAwareCommand
      * @var EventDispatcher
      */
     protected static $dispatcher;
+
+    protected static $last;
 
     protected function configure()
     {
@@ -83,6 +84,11 @@ class BotRunCommand extends ContainerAwareCommand
 
     public static function onEvent(\TeamSpeak3_Adapter_ServerQuery_Event $event, \TeamSpeak3_Node_Host $host)
     {
+        if (self::$last == serialize($event)) {
+            return;
+        }
+        self::$last = serialize($event);
+
         self::$dispatcher->dispatch(NotifyEvent::getName(), new NotifyEvent($event, $host));
 
         switch ($event->getType()) {
@@ -96,7 +102,8 @@ class BotRunCommand extends ContainerAwareCommand
                 self::$dispatcher->dispatch(ChannelDeletedEvent::getName(), new ChannelDeletedEvent($event, $host));
                 break;
             case 'cliententerview':
-                self::$dispatcher->dispatch(ClientEnterViewEvent::getName(), new ClientEnterViewEvent($event, $host));
+                self::$dispatcher->dispatch(ClientEnterViewEvent::getName(),
+                    new ClientEnterViewEvent($event, $host));
                 break;
             case 'clientleftview':
                 self::$dispatcher->dispatch(ClientLeftViewEvent::getName(), new ClientLeftViewEvent($event, $host));
@@ -112,6 +119,7 @@ class BotRunCommand extends ContainerAwareCommand
             default:
                 break;
         }
+
     }
 
     public static function onSelect(\TeamSpeak3_Node_Host $host)
@@ -134,12 +142,5 @@ class BotRunCommand extends ContainerAwareCommand
         if (false === file_exists(self::$pidFile)) {
             die();
         }
-
-        if ($serverQuery->getQueryLastTimestamp() < time() - 300) {
-            $serverQuery->request("clientupdate");
-        }
-
-        self::$dispatcher->dispatch(ServerqueryWaitTimeoutEvent::getName(),
-            new ServerqueryWaitTimeoutEvent($timeout, $serverQuery));
     }
 }

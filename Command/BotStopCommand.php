@@ -8,7 +8,7 @@
  * Time: 18:12
  */
 
-namespace eSA\TeamSpeakBundle\Command;
+namespace ESA\TeamSpeakBundle\Command;
 
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
