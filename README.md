@@ -1,4 +1,4 @@
-# eSATeamSpeakBundle
+# ESATeamSpeakBundle
 
 [![Latest Stable Version](https://poser.pugx.org/esports-academy/teamspeak-bundle/v/stable?format=flat-square)](https://packagist.org/packages/esports-academy/teamspeak-bundle) [![Total Downloads](https://poser.pugx.org/esports-academy/teamspeak-bundle/downloads?format=flat-square)](https://packagist.org/packages/esports-academy/teamspeak-bundle) [![License](https://poser.pugx.org/esports-academy/teamspeak-bundle/license?format=flat-square)](https://packagist.org/packages/esports-academy/teamspeak-bundle)
 
@@ -11,7 +11,7 @@ This Bundle give you a connection to a TeamSpeak³-Server. It listen add events 
 
 ## <a name="install"></a>Installation
 
-Run `composer require esports-academy/backup-bundle` to use eSATeamSpeakBundle in your Project.
+Run `composer require esports-academy/backup-bundle` to use ESATeamSpeakBundle in your Project.
 
 ## <a name="config"></a>Configuration
 
