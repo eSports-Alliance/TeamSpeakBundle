@@ -77,6 +77,7 @@ class BotRunCommand extends ContainerAwareCommand
             try {
                 $teamSpeak->getAdapter()->wait();
             } catch (\Exception $e) {
+                echo sprintf("[%s] [%s:%s   ] - %s ", date("H:i:s"), $e->getFile(), $e->getLine(), $e->getMessage());
                 sleep(30);
             }
         }
@@ -139,8 +140,13 @@ class BotRunCommand extends ContainerAwareCommand
      */
     public static function onTimeout($timeout, \TeamSpeak3_Adapter_ServerQuery $serverQuery)
     {
+
         if (false === file_exists(self::$pidFile)) {
             die();
+        }
+
+        if ($serverQuery->getQueryLastTimestamp() < time() - 290) {
+            $serverQuery->request("clientupdate");
         }
     }
 }
